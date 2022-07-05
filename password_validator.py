@@ -42,7 +42,17 @@ def IsValid(string: str) -> bool:
 
 
 def main():
-    password = sys.argv[1]
+
+    password = ""
+
+    if sys.argv[1] == '-f':
+        file_path = sys.argv[2]
+        f = open(file_path, 'r')
+        password = f.read()
+        f.close()
+    else:
+        password = sys.argv[1]
+
     text_color = not Fore
 
     dict_of_messages = {"alphabet": "Letter must be entered in the password !!!",
