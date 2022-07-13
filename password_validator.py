@@ -1,5 +1,4 @@
 import sys
-from colorama import Fore
 
 dict_of_checks = {"min_ten": False,
                   "digit": False,
@@ -7,6 +6,12 @@ dict_of_checks = {"min_ten": False,
                   "small": False,
                   "capital": False
                   }
+
+colors = {
+    "red": '\033[31m',
+    "green": '\033[32m',
+    "White": '\033[37m'
+}
 
 
 def IsValid(string: str) -> bool:
@@ -42,8 +47,15 @@ def IsValid(string: str) -> bool:
 
 
 def main():
-    password = sys.argv[1]
-    text_color = not Fore
+    password = ""
+
+    if sys.argv[1] == '-f':
+        file_path = sys.argv[2]
+        f = open(file_path, 'r')
+        password = f.read()
+        f.close()
+    else:
+        password = sys.argv[1]
 
     dict_of_messages = {"alphabet": "Letter must be entered in the password !!!",
                         "digit": "Number must be entered in the password !!!",
@@ -55,9 +67,9 @@ def main():
     if not IsValid(password):
         for item in dict_of_checks:
             if not dict_of_checks[item]:
-                raise TypeError(Fore.RED + dict_of_messages[item])
+                raise TypeError(colors["red"] + dict_of_messages[item] + colors["White"])
 
-    print(Fore.GREEN + "passed the validation")
+    print(colors["green"] + "passed the validation")
 
 
 if __name__ == "__main__":
